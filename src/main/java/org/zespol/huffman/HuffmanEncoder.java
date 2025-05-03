@@ -4,6 +4,17 @@ import java.util.*;
 
 public class HuffmanEncoder {
     private Map<Character, String> encodingMap;
+
+    public Map<Character, Integer> getFrequencyMap() {
+        return frequencyMap;
+    }
+
+    private Map<Character, Integer> frequencyMap;
+
+    public HuffmanNode getRoot() {
+        return root;
+    }
+
     private HuffmanNode root;
 
     public HuffmanEncoder() {
@@ -15,7 +26,7 @@ public class HuffmanEncoder {
             return "";
         }
 
-        Map<Character, Integer> frequencyMap = createFrequencyMap(message);
+        createFrequencyMap(message);
         buildTree(frequencyMap);
         createEncodingMap(root, "");
 
@@ -26,12 +37,12 @@ public class HuffmanEncoder {
         return encoded.toString();
     }
 
-    private Map<Character, Integer> createFrequencyMap(String message) {
+    private void createFrequencyMap(String message) {
         Map<Character, Integer> frequencyMap = new HashMap<>();
         for (char c : message.toCharArray()) {
             frequencyMap.merge(c, 1, Integer::sum);
         }
-        return frequencyMap;
+        this.frequencyMap = frequencyMap;
     }
 
     private void buildTree(Map<Character, Integer> frequencyMap) {
